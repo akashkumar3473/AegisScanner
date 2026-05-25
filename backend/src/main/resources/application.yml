@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: code-security-scanner
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+server:
+  port: 8080
+
+app:
+  jwt:
+    secret: 9a67471b795f9c464c20d7f951e70e932b7a9504c3e86c0734e565985bcf56ab
+    expiration-ms: 86400000 # 24 hours
+  gemini:
+    api-key: ${GEMINI_API_KEY:}
+  scan:
+    temp-dir: ${java.io.tmpdir}/code-security-scanner

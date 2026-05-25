@@ -1,0 +1,18 @@
+stages:
+  - test
+  - security
+
+aegis-security-scan:
+  stage: security
+  image: node:18-alpine
+  before_script:
+    - apk add --no-cache curl
+  script:
+    # Fetch the CLI integration tool
+    - curl -sS https://raw.githubusercontent.com/username/project/main/ci-cd-examples/scanner-cli.js -o scanner-cli.js
+    
+    # Run the scanner CLI. Fail build if critical vulnerabilities are found.
+    - node scanner-cli.js "$AEGIS_API_URL" "$AEGIS_EMAIL" "$AEGIS_PASSWORD" "$AEGIS_REPO_ID" CRITICAL
+  only:
+    - main
+    - merge_requests

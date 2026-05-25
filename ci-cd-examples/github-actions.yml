@@ -1,0 +1,33 @@
+name: Security Scan Audit
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run AegisScanner Audit
+        env:
+          AEGIS_API_URL: ${{ secrets.AEGIS_API_URL }}
+          AEGIS_EMAIL: ${{ secrets.AEGIS_EMAIL }}
+          AEGIS_PASSWORD: ${{ secrets.AEGIS_PASSWORD }}
+          AEGIS_REPO_ID: ${{ secrets.AEGIS_REPO_ID }}
+        run: |
+          # Fetch the CLI integration tool
+          curl -sS https://raw.githubusercontent.com/username/project/main/ci-cd-examples/scanner-cli.js -o scanner-cli.js
+          
+          # Execute scan and fail build on any critical/high warnings
+          node scanner-cli.js "$AEGIS_API_URL" "$AEGIS_EMAIL" "$AEGIS_PASSWORD" "$AEGIS_REPO_ID" HIGH
