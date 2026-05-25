@@ -1,78 +1,155 @@
-# AegisScanner - Code Security & Quality Analytics Platform
+# 🔐 AegisScanner
 
-AegisScanner is an enterprise-grade DevSecOps platform built to scan repositories for security vulnerabilities (SQL Injection, XSS, exposed secrets, private keys, insecure cryptography, and unsafe deserialization), analyze library dependencies (Maven and npm packages) for known CVEs, and calculate key code quality metrics (Cyclomatic Complexity, Duplicate Code %, Maintainability Rating, and Technical Debt).
-
-It features **AI-Powered Secure Code Remediation** (powered by Gemini) to automatically provide secure code proposals and side-by-side comparisons.
+An enterprise-grade DevSecOps platform inspired by AutoRABIT CodeScan that performs static code analysis, detects vulnerabilities, scans dependencies, evaluates code quality, and generates security reports.
 
 ---
 
-## Architecture Overview
-- **Frontend**: React.js (Vite) + Tailwind CSS (v3) + Recharts (dashboard charts) + Lucide Icons + STOMP WebSockets client.
-- **Backend**: Java 21 + Spring Boot 3.2.5 + Spring Security (JWT state-free) + JGit (repository engine) + OpenPDF (report generation).
-- **Messaging Queue**: RabbitMQ (Prod) / Spring Async Thread Executor (Dev).
-- **Database**: PostgreSQL (Prod) / H2 in-memory (Dev).
+# 🚀 Features
+
+## ✅ Repository Integration
+- GitHub Integration
+- GitLab Integration
+- Bitbucket Support
+- Pull Request Scanning
+- Branch-Based Scanning
 
 ---
 
-## 🚀 Running Locally (Zero-Setup Development Mode)
-The application has a dual-profile configuration. The default `dev` profile does not require Docker, Postgres, or RabbitMQ, running with H2 database and in-memory queue executors.
+## ✅ Static Application Security Testing (SAST)
 
-### 1. Launch the Backend API
-1. Navigate to the `backend` folder:
-   ```bash
-   cd backend
-   ```
-2. Build and start the Spring Boot app:
-   ```bash
-   ./mvnw spring-boot:run
-   ```
-   *The backend will run on [http://localhost:8080](http://localhost:8080).*
-   *H2 Console is available at `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:scannerdb`, User: `sa`, Password: `password`).*
+Detect vulnerabilities such as:
+- SQL Injection
+- Cross-Site Scripting (XSS)
+- Hardcoded Secrets
+- Weak Encryption
+- Unsafe Deserialization
+- Security Misconfigurations
 
-### 2. Launch the React Frontend
-1. Navigate to the `frontend` folder:
-   ```bash
-   cd frontend
-   ```
-2. Install npm packages:
-   ```bash
-   npm install
-   ```
-3. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-   *The frontend will run on [http://localhost:5173](http://localhost:5173).*
+Supported languages:
+- Java
+- JavaScript
+- Python
 
 ---
 
-## 🐳 Running in Production Mode (Docker Compose)
-To run the production architecture (React Nginx, Spring Boot API, PostgreSQL, and RabbitMQ):
-
-1. Set your Gemini API key (optional, falls back to offline secure recipes if unset):
-   ```bash
-   $env:GEMINI_API_KEY="your-api-key"   # Windows PowerShell
-   export GEMINI_API_KEY="your-api-key" # Linux/macOS
-   ```
-2. Spin up containers in the root directory:
-   ```bash
-   docker compose up --build
-   ```
-3. Access:
-   - **Frontend**: [http://localhost:3000](http://localhost:3000)
-   - **Backend API**: [http://localhost:8080](http://localhost:8080)
-   - **RabbitMQ Management**: [http://localhost:15672](http://localhost:15672) (User: `guest`, Password: `guest`)
+## ✅ Code Quality Analysis
+- Cyclomatic Complexity
+- Duplicate Code Detection
+- Technical Debt Analysis
+- Maintainability Score
+- Code Smells Detection
 
 ---
 
-## 🛠️ CI/CD Pipeline CLI Integration
-We provide a Node.js integration script in `ci-cd-examples/scanner-cli.js`. You can use it to block/fail builds if severe vulnerabilities are found during commits.
+## ✅ Dependency Vulnerability Scanning
+- Maven Dependency Scan
+- NPM Package Scan
+- CVE Detection
+- OWASP Dependency Check Integration
 
-```bash
-# Usage:
-node ci-cd-examples/scanner-cli.js <api-url> <user-email> <user-password> <repo-id> [max-fail-severity]
+---
 
-# Example: Fail build on any Critical or High security warnings:
-node ci-cd-examples/scanner-cli.js http://localhost:8080 api@company.com password123 1 HIGH
-```
-Examples for **GitHub Actions** and **GitLab CI** are provided in the `ci-cd-examples/` directory.
+## ✅ Secret Detection
+Detect:
+- API Keys
+- JWT Tokens
+- AWS Secrets
+- Database Credentials
+- Hardcoded Passwords
+
+---
+
+## ✅ Dashboard & Analytics
+- Vulnerability Trends
+- Severity Distribution
+- Scan History
+- Team Performance Metrics
+- Security Score
+
+---
+
+## ✅ Report Generation
+Generate reports in:
+- PDF
+- CSV
+- JSON
+- HTML
+
+---
+
+## ✅ CI/CD Integration
+Supports:
+- Jenkins
+- GitHub Actions
+- GitLab CI
+
+Build automatically fails if critical vulnerabilities are detected.
+
+---
+
+# 🏗️ System Architecture
+
+## Workflow Diagram
+
+![Workflow Diagram](docs/workflow-diagram.png)
+
+---
+
+# 🧰 Tech Stack
+
+## Backend
+- Java 21
+- Spring Boot
+- Spring Security
+- Spring Data JPA
+- JWT Authentication
+
+---
+
+## Frontend
+- React.js
+- Tailwind CSS
+- Chart.js
+
+---
+
+## Database
+- PostgreSQL
+
+---
+
+## Message Queue
+- RabbitMQ
+
+---
+
+## Security Tools
+- Semgrep
+- PMD
+- SpotBugs
+- OWASP Dependency Check
+
+---
+
+## DevOps
+- Docker
+- Kubernetes
+- Jenkins
+- GitHub Actions
+
+---
+
+# 📂 Project Structure
+
+# 🏗️ System Architecture
+
+## Workflow Diagram
+
+The workflow includes:
+- Repository cloning
+- Static code analysis
+- Vulnerability detection
+- Dependency scanning
+- Report generation
+- Dashboard analytics
+- CI/CD integration
